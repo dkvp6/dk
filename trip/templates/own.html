@@ -1,0 +1,70 @@
+{% load static %}
+{% include 'inc/navbar.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Monitoring Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Admin Monitoring Dashboard</h2>
+
+
+
+  <div class="row text-center mb-4">
+    <div class="col-md-4">
+      <div class="card bg-primary text-white shadow">
+        <div class="card-body">
+          <h5>Total Users</h5>
+          <h2>{{ total_users }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-success text-white shadow">
+        <div class="card-body">
+          <h5>Total Packages</h5>
+          <h2>{{ total_packages }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-warning text-dark shadow">
+        <div class="card-body">
+          <h5>Total Bookings</h5>
+          <h2>{{ total_bookings }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ New Row for Pending Approvals -->
+ <div class="row text-center mt-4">
+  <div class="col-md-4">
+    <div class="card bg-info text-white shadow">
+      <div class="card-body">
+        <h5>Active Packages</h5>
+        <h2>{{ active_packages }}</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card bg-danger text-white shadow">
+      <div class="card-body">
+        <h5>Pending Approval</h5>
+        <h2>{{ pending_packages }}</h2>
+        <a href="/admin/trip/package/?is_approved__exact=0" class="btn btn-light btn-sm mt-2">Review</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card bg-secondary text-white shadow">
+      <div class="card-body">
+        <h5>Expired Packages</h5>
+        <h2>{{ expired_packages }}</h2>
+      </div>
+    </div>
+  </div>
+</div>

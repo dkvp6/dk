@@ -1,0 +1,90 @@
+  {% include 'inc/navbar.html' %}
+
+<style>
+  .package-card {
+    width: 18rem;
+    margin: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .package-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .package-img {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+
+  .btn-group-custom .btn {
+    margin: 5px;
+    border-radius: 20px;
+    padding: 5px 15px;
+  }
+
+  .card-body p {
+    font-size: 0.95rem;
+  }
+
+  .price-tag {
+    color: #1a237e;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .heading-bar {
+    width: 80px;
+    height: 4px;
+    background-color: #007bff;
+    margin: 0 auto 20px;
+    border-radius: 2px;
+  }
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-1 display-5">🌍 Explore Tour Packages</h2>
+  <div class="heading-bar"></div>
+
+  <!-- Filter Buttons -->
+  <div class="text-center btn-group-custom mb-4">
+    <a href="{% url 'all_packages' %}" class="btn btn-outline-dark btn-sm">All</a>
+    <a href="{% url 'top_packages' %}" class="btn btn-outline-primary btn-sm">Top</a>
+    <a href="{% url 'budget_packages' %}" class="btn btn-outline-success btn-sm">Budget</a>
+    <a href="{% url 'packages_by_destination' 'Goa' %}" class="btn btn-outline-info btn-sm">Goa</a>
+    <a href="{% url 'packages_by_destination' 'Paris' %}" class="btn btn-outline-info btn-sm">Paris</a>
+  </div>
+
+  <!-- Packages -->
+
+
+<div class="container mt-5">
+  <h2 class="text-center">{{ title }}</h2>
+  <div class="text-center mb-4">
+    <a href="{% url 'all_packages' %}" class="btn btn-outline-dark btn-sm">All</a>
+    <a href="{% url 'top_packages' %}" class="btn btn-outline-primary btn-sm">Top</a>
+    <a href="{% url 'budget_packages' %}" class="btn btn-outline-success btn-sm">Budget</a>
+    <a href="{% url 'packages_by_destination' 'Goa' %}" class="btn btn-outline-info btn-sm">Goa</a>
+    <a href="{% url 'packages_by_destination' 'Paris' %}" class="btn btn-outline-info btn-sm">Paris</a>
+  </div>
+
+  <div class="row justify-content-center">
+    {% for i in pack %}
+    <div class="card text-center" style="width: 18rem; margin: 15px;">
+      <img src="{{ i.img.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ i.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ i.name }}</h5>
+        <p class="card-text">{{ i.desc|truncatechars:100 }}</p>
+        <p class="card-text"><strong>Destination:</strong> {{ i.destination }}</p>
+        <p class="card-text text-primary fw-bold">Price: ₹{{ i.price }}</p>
+        <a href="{% url 'booking' %}" class="btn btn-primary">Book Now</a>
+      </div>
+    </div>
+    {% empty %}
+    <p>No packages found.</p>
+    {% endfor %}
+  </div>
+</div>

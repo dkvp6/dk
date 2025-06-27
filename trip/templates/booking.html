@@ -1,0 +1,73 @@
+
+
+
+{% load static %}
+{% include 'inc/navbar.html'%}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f2f4f8;
+    }
+
+    .booking-container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #333;
+        text-align: center;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+
+    .btn-submit {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #218838;
+    }
+</style>
+
+<div class="booking-container">
+    <h2>Book Your Package</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Book Now</button>
+    </form>
+</div>
+{% endblock %}

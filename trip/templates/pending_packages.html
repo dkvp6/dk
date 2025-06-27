@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Packages</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Pending Package Approvals</h2>
+    {% if packages %}
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Vendor</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pkg in packages %}
+                <tr>
+                    <td>{{ pkg.name }}</td>
+                    <td>{{ pkg.vendor.username }}</td>
+                    <td>{{ pkg.price }}</td>
+                    <td>{{ pkg.description|truncatechars:50 }}</td>
+                    <td>
+                        <a href="{% url 'approve_package' pkg.pk %}" class="btn btn-success btn-sm">Approve</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No packages waiting for approval.</p>
+    {% endif %}
+</div>
+</body>
+</html>

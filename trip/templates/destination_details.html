@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h2>{{ destination.name }}</h2>
+  <p>{{ destination.description }}</p>
+  <img src="{{ destination.img.url }}" class="img-fluid mb-3" alt="{{ destination.name }}">
+
+  <h4>Available Packages</h4>
+  {% for pkg in packages %}
+    <div class="card mb-2">
+      <div class="card-body">
+        <h5>{{ pkg.title }}</h5>
+        <p>{{ pkg.details }}</p>
+        <p><strong>Price:</strong> ₹{{ pkg.price }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p>No packages available for this destination.</p>
+  {% endfor %}
+</div>

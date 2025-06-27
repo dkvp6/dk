@@ -1,0 +1,59 @@
+{% include 'inc/navbar.html'%}
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f4f8fb;
+    }
+
+    .payment-container {
+        max-width: 600px;
+        margin: 60px auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    .payment-container h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .payment-container p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .razorpay-payment-button {
+        margin-top: 30px;
+    }
+
+    /* Optional: loading spinner while Razorpay loads */
+    .loading-text {
+        font-size: 14px;
+        color: #999;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="payment-container">
+    <h2>Complete Your Payment</h2>
+    <p><strong>Package:</strong> {{ package.name }}</p>
+    <p><strong>Amount:</strong> ₹{{ package.price }}</p>
+
+    <!-- Razorpay Payment Button -->
+    <form>
+        <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                data-payment_button_id="pl_QmATiuhFGpkTxn"
+                async>
+        </script>
+    </form>
+
+    <div class="loading-text">If the payment button doesn’t load, please refresh the page.</div>
+</div>
+{% endblock %}

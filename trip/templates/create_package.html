@@ -1,0 +1,10 @@
+
+{% include 'inc/navbar.html' %}
+<div class="container mt-5" style="max-width: 600px;">
+  <h2 class="mb-4 text-center">Add New Package</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary w-100">Add Package</button>
+
