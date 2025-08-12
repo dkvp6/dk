@@ -27,7 +27,8 @@ class Package(models.Model):
     expiry_date = models.DateField(null=True, blank=True)
     is_approved = models.BooleanField(default=False)
 
-    objects = PackageManager()  # ✅ Use custom manager
+
+    objects = PackageManager()
 
     def __str__(self):
         return self.name

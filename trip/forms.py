@@ -1,12 +1,11 @@
 from django import forms
 from .models import Package, Booking
 
-
 class PackageForm(forms.ModelForm):
     class Meta:
         model = Package
-        exclude = ['vendor']
-        fields = '__all__'
+        # Explicitly list the fields you want to include
+        fields = ['img', 'name', 'desc', 'price', 'destination', 'is_top', 'expiry_date']  # removed 'is_approved' and 'vendor'
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -15,7 +14,6 @@ class PackageForm(forms.ModelForm):
             'img': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'is_top': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'expiry_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-
         }
         labels = {
             'name': "Package Name",
@@ -24,6 +22,7 @@ class PackageForm(forms.ModelForm):
             'img': "Image",
             'is_top': "Top Package?",
         }
+
 
 
 class BookingForm(forms.ModelForm):

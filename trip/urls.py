@@ -34,7 +34,8 @@ path('own/', views.own, name='own'),
 
 
 path('booking/', views.booking, name='booking'),
-path('pay/', views.pay, name='pay'),
+path('pay/<int:package_id>/', views.pay, name='pay'),
+
 
 
 ]

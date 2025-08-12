@@ -12,7 +12,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .models import Package
 from .forms import PackageForm, BookingForm, VendorRegisterForm
 
-# ================== Home & Authentication ===================
+# Home & Authentication
 
 def index(request):
     return render(request, 'index.html')
@@ -88,7 +88,7 @@ def vendor_login(request):
 
 
 
-# ================== Package Views ===================
+# ==================== Package Views ===================
 
 def all_packages(request):
     today = timezone.now().date()
@@ -190,24 +190,30 @@ def vendor_bookings(request):
     return render(request, 'vendor_bookings.html', {'bookings': bookings})
 
 # ================== Booking ===================
-
 def booking(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Booking successful!")
-            return redirect('pay')
+            booking = form.save()
+            package_id = booking.package.id
+            messages.success(request, "Package booked successfully!")
+            return redirect('pay', package_id=package_id)
         else:
-            messages.error(request, "Please correct the errors in the form.")
+            messages.error(request, "Please correct the errors below.")
     else:
         form = BookingForm()
+
     return render(request, 'booking.html', {'form': form})
 
-def pay(request):
-    return render(request,'pay.html')
 
-# ================== Admin Dashboard ===================
+def pay(request, package_id):
+    package = get_object_or_404(Package, id=package_id)
+    context = {
+        'package': package
+    }
+    return render(request, 'pay.html', context)
+
+# Admin Dashboard
 
 def admin_login(request):
     if request.method == 'POST':
@@ -252,7 +258,7 @@ def own(request):
     return render(request, 'own.html', context)
 
 
-# ================== Vendor Dashboard ===================
+# ==========---===== Vendor Dashboard ======--============
 
 def vendor_dashboard(request):
     if not request.user.is_authenticated:
@@ -275,7 +281,7 @@ def vendor_dashboard(request):
         'pending_packages': pending_packages,
         'expired_packages': expired_packages,
         'total_bookings': total_bookings,
-        'my_packages': vendor_packages  # 🟢 This is what powers the table
+        'my_packages': vendor_packages  #
     }
     return render(request, 'dashboard.html', context)
 
